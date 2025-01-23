@@ -40,7 +40,6 @@ function getZodiacSign(day, month) {
     }).name;
 }
 
-// Manejar el envío del formulario
 document.getElementById('zodiac-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
