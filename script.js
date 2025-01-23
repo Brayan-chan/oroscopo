@@ -17,6 +17,7 @@ const db = firebase.firestore();
 // Función para calcular el signo zodiacal
 function getZodiacSign(day, month) {
     const zodiacSigns = [
+        // Objetos tipo Java donde se definen los signos
         {name: "Capricornio", start: [1, 1], end: [1, 19]},
         {name: "Acuario", start: [1, 20], end: [2, 18]},
         {name: "Piscis", start: [2, 19], end: [3, 20]},
@@ -32,10 +33,11 @@ function getZodiacSign(day, month) {
         {name: "Capricornio", start: [12, 22], end: [12, 31]}
     ];
 
-    const date = new Date(2000, month - 1, day);
+    const date = new Date(2025, month - 1, day);
+    
     return zodiacSigns.find(sign => {
-        const start = new Date(2000, sign.start[0] - 1, sign.start[1]);
-        const end = new Date(2000, sign.end[0] - 1, sign.end[1]);
+        const start = new Date(2025, sign.start[0] - 1, sign.start[1]);
+        const end = new Date(2025, sign.end[0] - 1, sign.end[1]);
         return date >= start && date <= end;
     }).name;
 }
@@ -50,8 +52,7 @@ document.getElementById('zodiac-form').addEventListener('submit', async (e) => {
         // Guardar en Firebase
         await db.collection('birthdays').add({
             day: day,
-            month: month,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            month: month
         });
         
         // Calcular y mostrar el signo zodiacal
